@@ -14,9 +14,13 @@ $DB_Config=config_init();
 
 //Include mysql.php
 include_once(CNCMSsourcePATH . "/mysql.php");
+include_once(CNCMSsourcePATH . "/mysqlmulti.php");
 
-$query="SELECT * FROM `test`";
-$data=mysql_returnmarray($query);
+
+$querykeyed=array("example1" => "SELECT * FROM  `test`",
+                  "example2" => "SHOW TABLES");
+
+$data=mysqli_multiselect($querykeyed);
 
 print_r($data);
 
