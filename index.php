@@ -1,5 +1,7 @@
 <?php
 
+//Turn on error reporting.
+//Note: Disable the following two if used in a production environment.
 ini_set("display_errors","1");
 ERROR_REPORTING(E_ALL);
 
@@ -12,16 +14,17 @@ include_once(CNCMSsourcePATH . "/config.php");
 //Execute config.php
 $DB_Config=config_init();
 
-//Include mysql.php
+//Include mysql.php and mysqlmulti.php
 include_once(CNCMSsourcePATH . "/mysql.php");
 include_once(CNCMSsourcePATH . "/mysqlmulti.php");
 
+//Make the default set of queries.
+$Main_Qry=array("GlobalSettings" => "SELECT * FROM `$DB_Config[db_tableprefix]globalsettings`");
 
-$querykeyed=array("example1" => "SELECT * FROM  `test`",
-                  "example2" => "SHOW TABLES");
+$SETUP_Main=mysqli_multiselect($Main_Qry);
 
-$data=mysqli_multiselect($querykeyed);
-
-print_r($data);
+echo "<pre>";
+print_r($SETUP_Main);
+echo "</pre>";
 
 ?>
