@@ -1,8 +1,0 @@
-TODO:
-
-
-convert to using sprite sheet images 
-make ViewArea a non-static class (again)
-polish and fix scrolling bugs
-organize world data more efficiently
-*possibly redo rendering 
