@@ -23,15 +23,17 @@ import Entity.Tile;
  */
 public class World 
 {
+	ViewArea screen;
 	Map testMap = new Map();
-	Player user;
+	Player player;
 
 	ArrayList<Entity> actives = new ArrayList<Entity>();
 	Entity[] renderQueue = new Entity[(Game.width / 32) * (Game.height / 32) + 1];
 	
 	public World() throws SlickException
 	{
-		user = new Player("player", new Vector2f(100, 100));
+		player = new Player("player", new Vector2f(100, 100));
+		screen = new ViewArea(player);
 		
 		for (int i = 0; i < 500; i++)
 		{
@@ -41,7 +43,7 @@ public class World
 			}
 		}
 		
-		renderQueue[500] = user;
+		renderQueue[500] = player;
 	}
 	
 	public void init()
@@ -66,12 +68,14 @@ public class World
 	 */
 	public void update(GameContainer gc)
 	{
-		user.update(gc, null);
+		player.update(gc, null, screen);
+		screen.update();
+		
 		for (Entity e : renderQueue)
 		{
 			if (e != null)
 			{
-				e.update(gc, null);
+				e.update(gc, null, screen);
 			}
 		}
 	}

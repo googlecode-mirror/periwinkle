@@ -97,10 +97,10 @@ public class Entity
     	this.scale = scale;
     }
  
-    public void update(GameContainer gc, StateBasedGame sb)
-    {  	   	    
-    	position.x -= ViewArea.x;
-    	position.y -= ViewArea.y;
+    public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
+    {  	   
+    	position.x += screen.x;
+    	position.y += screen.y;
     	
         for(Component component : components)
         {

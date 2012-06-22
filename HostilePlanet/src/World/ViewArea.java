@@ -1,7 +1,7 @@
 package World;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Input;
+
+import Entity.Entity;
 
 /**
  * 
@@ -11,8 +11,50 @@ import org.newdawn.slick.Input;
  */
 public class ViewArea 
 {
-	public static int x = 0;
-	public static int y = 0;
-	static int width = Game.width;
-	static int height = Game.height;
+	public int x;
+	public int y;
+	int width;
+	int height;
+	Entity focus;
+	
+	public ViewArea(Entity focus)
+	{
+		this.focus = focus;
+		x = 0;
+		y = 0;
+		width = Game.width;
+		height = Game.height;
+	}
+	
+	public void update()
+	{
+		float xPos = focus.getPosition().x;
+		float yPos = focus.getPosition().y;
+		
+		if (xPos > 500)
+		{
+			x = -1;
+		}
+			
+		else
+			x = 0;
+		
+		if (yPos < 220)
+		{
+			y = 1;
+		}
+			
+		else
+			y = 0;
+		
+		if (xPos < 300)
+		{
+			x = 1;
+		}
+		
+		if (yPos > 340)
+		{
+			y = -1;
+		}
+	}
 }
