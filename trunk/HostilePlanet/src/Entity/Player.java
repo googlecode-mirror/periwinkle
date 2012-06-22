@@ -20,7 +20,7 @@ public class Player extends Entity
 		
 		try 
 		{
-			addComponent(new ImageRenderComponent("player", new Image("Resources/trooper.png")));
+			addComponent(new ImageRenderComponent("player", new Image("Resources/trooper.png", false, Image.FILTER_NEAREST)));
 		} 
 		catch (SlickException e) 
 		{
@@ -28,9 +28,9 @@ public class Player extends Entity
 		}
 	}
 	
-	public void update(GameContainer gc, StateBasedGame sb)
+	public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
 	{
-		 super.update(gc, sb);
+		 super.update(gc, sb, screen);
 	    	
 		 input = gc.getInput();
 		 getMovement(input);
@@ -40,39 +40,25 @@ public class Player extends Entity
 	
 	public void getMovement(Input input)
 	{
-		if (input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_S) ||
-			input.isKeyDown(Input.KEY_W) || input.isKeyDown(Input.KEY_D))
+		if(input.isKeyDown(Input.KEY_A))
 		{
-			if(input.isKeyDown(Input.KEY_A))
-			{
-				position.set((position.getX() - movementSpeed), position.getY());
-				ViewArea.x = -1;
-			}
-	    	
-	    	if(input.isKeyDown(Input.KEY_S))
-	    	{
-	    		position.set(position.getX(), (position.getY() + movementSpeed));
-	    		ViewArea.y = 1;
-	    	}
-	    	
-		    if(input.isKeyDown(Input.KEY_D))
-		    {
-		    	position.set((position.getX() + movementSpeed), position.getY());
-		    	ViewArea.x = 1;
-		    }
-	    	
-		    if(input.isKeyDown(Input.KEY_W))
-		    {
-		    	position.set(position.getX(), (position.getY() - movementSpeed));
-		    	ViewArea.y = -1;
-		    }
+			position.set((position.getX() - movementSpeed), position.getY());
 		}
-	    
-		else
-		{
-		    ViewArea.y = 0;
-		    ViewArea.x = 0;
+	    	
+		if(input.isKeyDown(Input.KEY_S))
+    	{
+    		position.set(position.getX(), (position.getY() + movementSpeed));
+    	}
+	    	
+	    if(input.isKeyDown(Input.KEY_D))
+	    {
+	    	position.set((position.getX() + movementSpeed), position.getY());
 		}
+	    	
+	    if(input.isKeyDown(Input.KEY_W))
+	    {
+		   	position.set(position.getX(), (position.getY() - movementSpeed));
+	    }
 	}
 	 
 	public float getRotationTheta()
