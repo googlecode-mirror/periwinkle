@@ -1,0 +1,3 @@
+Step 1.) Get General Settings
+Step 2.) Make default query, authentication, pageheader, pagecontent   -- Later make flexible for other plugins
+Step 3.) Pull in template and make output.
