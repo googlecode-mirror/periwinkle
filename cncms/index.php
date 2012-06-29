@@ -18,6 +18,7 @@ $DB_Config=config_init();
 include_once(CNCMSsourcePATH . "/mysql.php");
 include_once(CNCMSsourcePATH . "/mysqlmulti.php");
 
+//Build default query.
 //Make the default set of queries.
 $Main_Qry=array("GlobalSettings" => "SELECT * FROM `$DB_Config[db_tableprefix]globalsettings`");
 
@@ -26,5 +27,9 @@ $SETUP_Main=mysqli_multiselect($Main_Qry);
 echo "<pre>";
 print_r($SETUP_Main);
 echo "</pre>";
+
+foreach ($SETUP_Main['GlobalSettings'][0] as $name => $value){
+    echo "name $name value $value <br />";   
+}
 
 ?>
