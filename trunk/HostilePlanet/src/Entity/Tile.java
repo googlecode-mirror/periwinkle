@@ -4,11 +4,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 
+import World.World;
+
 public class Tile extends Entity
 {
-	public Tile(String id, Vector2f position) 
+	public Tile(World world, String id, Vector2f position) 
 	{
-		super(id, position);
+		super(world, id, position);
 		
 		try 
 		{

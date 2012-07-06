@@ -24,15 +24,17 @@ import Entity.Tile;
 public class World 
 {
 	ViewArea screen;
-	Map testMap = new Map();
+	Map testMap = new Map(this);
 	Player player;
 
+	ArrayList<Entity> toRemove = new ArrayList<Entity>();
+	ArrayList<Entity> toAdd = new ArrayList<Entity>();
 	ArrayList<Entity> actives = new ArrayList<Entity>();
 	Entity[] renderQueue = new Entity[(Game.width / 32) * (Game.height / 32) + 1];
 	
 	public World() throws SlickException
 	{
-		player = new Player("player", new Vector2f(100, 100));
+		player = new Player(this, "player", new Vector2f(100, 100));
 		screen = new ViewArea(player);
 		
 		for (int i = 0; i < 500; i++)
@@ -43,7 +45,7 @@ public class World
 			}
 		}
 		
-		renderQueue[500] = player;
+		actives.add(player);
 	}
 	
 	public void init()
@@ -51,14 +53,14 @@ public class World
 		
 	}
 
-	public void add(Entity e)
+	public void add(Entity e) //adding while iterating through actives causes con-mod-exception
 	{
-		actives.add(e);
+		toAdd.add(e);
 	}
 	
 	public void remove(Entity e)
 	{
-		actives.remove(e);
+		toRemove.remove(e);
 	}
 	
 	/**
@@ -68,7 +70,6 @@ public class World
 	 */
 	public void update(GameContainer gc)
 	{
-		player.update(gc, null, screen);
 		screen.update();
 		
 		for (Entity e : renderQueue)
@@ -78,6 +79,18 @@ public class World
 				e.update(gc, null, screen);
 			}
 		}
+		
+		for (Entity e : actives)
+		{
+			e.update(gc, null, screen);
+		}
+		
+		//add new entities to world
+		for (Entity e : toAdd)
+		{
+			actives.add(e);
+		}
+		toAdd.clear();
 	}
 	
 	/**
@@ -94,6 +107,11 @@ public class World
 			{
 				e.render(gc, sb, gr);
 			}
+		}
+		
+		for (Entity e : actives)
+		{
+			e.render(gc, sb, gr);
 		}
 	}
 }

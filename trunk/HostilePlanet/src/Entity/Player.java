@@ -8,15 +8,16 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import World.ViewArea;
+import World.World;
 
 public class Player extends Entity
 {	
 	float movementSpeed = 1;
 	Input input;
 	
-	public Player(String id, Vector2f position) 
+	public Player(World world, String id, Vector2f position) 
 	{
-		super(id, position);
+		super(world, id, position);
 		
 		try 
 		{
@@ -33,9 +34,18 @@ public class Player extends Entity
 		 super.update(gc, sb, screen);
 	    	
 		 input = gc.getInput();
+		 getAction(input);
 		 getMovement(input);
 	    	
 		 super.rotation = getRotationTheta();	
+	}
+	
+	public void getAction(Input input)
+	{
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
+		{
+			world.add(new Bullet(world, "shot", new Vector2f(position), 1));
+		}
 	}
 	
 	public void getMovement(Input input)

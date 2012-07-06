@@ -18,7 +18,7 @@ public class Map
 	public Tile[] layer0 = new Tile[500];
 	public Tile[] layer1 = new Tile[10];
 	
-	public Map()
+	public Map(World world)
 	{
 		//temporary code for testing map
 		int y = 0;
@@ -33,7 +33,7 @@ public class Map
 			else
 				x++;
 			
-			layer0[i] = new Tile("Sand", new Vector2f(x * 32, y * 32));
+			layer0[i] = new Tile(world, "Sand", new Vector2f(x * 32, y * 32));
 		}
 	}
 	
