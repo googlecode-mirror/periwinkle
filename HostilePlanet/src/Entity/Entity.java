@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
-import World.Game;
 import World.ViewArea;
 import World.World;
 
@@ -24,17 +22,21 @@ public class Entity
 {
 	String id;
 	
-	Vector2f position;
+	public World world;
+	public Vector2f position;
 	float rotation;
 	float scale;
+	float speed;
 	
 	Input userInput = new Input(0);
 	
 	RenderComponent renderComponent = null;
 	ArrayList<Component> components = new ArrayList<Component>();
 
-	public Entity(String id, Vector2f position)
-	{
+	public Entity(World world, String id, Vector2f position)
+	{	
+		this.world = world;
+		
 		this.id = id;
 		this.position = position;
 		
@@ -60,11 +62,6 @@ public class Entity
         }
  
         return null;
-    }
- 
-    public Vector2f getPosition()
-    {
-    	return position;
     }
  
     public float getScale()
@@ -99,8 +96,11 @@ public class Entity
  
     public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
     {  	   
-    	position.x += screen.x;
-    	position.y += screen.y;
+    	if (speed == 0)
+    	{
+    		position.x += screen.x;
+    		position.y += screen.y;
+    	}
     	
         for(Component component : components)
         {

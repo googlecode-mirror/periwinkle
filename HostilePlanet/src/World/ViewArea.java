@@ -28,8 +28,8 @@ public class ViewArea
 	
 	public void update()
 	{
-		float xPos = focus.getPosition().x;
-		float yPos = focus.getPosition().y;
+		float xPos = focus.position.x;
+		float yPos = focus.position.y;
 		
 		if (xPos > 500)
 		{

@@ -1,21 +1,21 @@
 package World;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.StateBasedGame;
 
 
 public class Game extends BasicGame
 {
 	public World one;
-	public static int height = 640;
-	public static int width = 800;
+	public static int height = 720;
+	public static int width = 1280;
 	
 	public Game() 
 	{
-		super("test");
+		super("Hostile Planet");
 	}
 
 	public void init(GameContainer gc) throws SlickException 
@@ -34,11 +34,11 @@ public class Game extends BasicGame
 	}
 	
 	public static void main(String[] args) throws SlickException
-	{
+	{	
 		AppGameContainer app = new AppGameContainer(new Game());
  
         app.setDisplayMode(width, height, false);
-        app.setTargetFrameRate(60);
+        app.setTargetFrameRate(128);
         app.start();
 	}
 }
