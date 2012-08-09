@@ -21,6 +21,7 @@ public class ImageRenderComponent extends RenderComponent
 		Vector2f pos = owner.position;
 		float scale = owner.getScale();
  
+		image.rotate(owner.getRotation() - image.getRotation());
 		image.draw(pos.x, pos.y, scale);
 	}
  

@@ -26,7 +26,11 @@ public class Entity
 	public Vector2f position;
 	float rotation;
 	float scale;
-	float speed;
+	int width, height;
+	
+	double xSpeed;
+	double ySpeed;
+	double speedScale;
 	
 	Input userInput = new Input(0);
 	
@@ -96,11 +100,10 @@ public class Entity
  
     public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
     {  	   
-    	if (speed == 0)
-    	{
-    		position.x += screen.x;
-    		position.y += screen.y;
-    	}
+
+    	position.x += screen.x + xSpeed;
+    	position.y += screen.y + ySpeed;
+
     	
         for(Component component : components)
         {
