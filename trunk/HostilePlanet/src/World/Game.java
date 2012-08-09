@@ -18,7 +18,7 @@ public class Game extends BasicGame
 		super("Hostile Planet");
 	}
 
-	public void init(GameContainer gc) throws SlickException 
+	public void init(GameContainer gc) throws SlickException
 	{
 		one = new World();
 	}
@@ -37,8 +37,8 @@ public class Game extends BasicGame
 	{	
 		AppGameContainer app = new AppGameContainer(new Game());
  
-        app.setDisplayMode(width, height, false);
-        app.setTargetFrameRate(128);
+        app.setDisplayMode(800, 600, false);
+        app.setTargetFrameRate(120);
         app.start();
 	}
 }

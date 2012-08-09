@@ -22,11 +22,14 @@ public class Player extends Entity
 		try 
 		{
 			addComponent(new ImageRenderComponent("player", new Image("Resources/trooper.png", false, Image.FILTER_NEAREST)));
-		} 
+		}
 		catch (SlickException e) 
 		{
 			e.printStackTrace();
 		}
+		
+		width = 32;
+		height = 32;
 	}
 	
 	public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
@@ -37,14 +40,19 @@ public class Player extends Entity
 		 getAction(input);
 		 getMovement(input);
 	    	
-		 super.rotation = getRotationTheta();	
+		 rotation = getRotationTheta();	
 	}
 	
 	public void getAction(Input input)
 	{
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 		{
-			world.add(new Bullet(world, "shot", new Vector2f(position), 1));
+			world.add(new Bullet(world, "shot", new Vector2f(position), -25, rotation));
+		}
+		
+		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON))
+		{
+			world.add(new BladeSphere(world, id, new Vector2f(position), 5, this));
 		}
 	}
 	

@@ -1,18 +1,16 @@
 package World;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
 import Entity.Entity;
-import Entity.ImageRenderComponent;
 import Entity.Player;
-import Entity.Tile;
 
 /**
  * @author C. Fox
@@ -27,8 +25,8 @@ public class World
 	Map testMap = new Map(this);
 	Player player;
 
-	ArrayList<Entity> toRemove = new ArrayList<Entity>();
-	ArrayList<Entity> toAdd = new ArrayList<Entity>();
+	LinkedList<Entity> toRemove = new LinkedList<Entity>();
+	LinkedList<Entity> toAdd = new LinkedList<Entity>();
 	ArrayList<Entity> actives = new ArrayList<Entity>();
 	Entity[] renderQueue = new Entity[(Game.width / 32) * (Game.height / 32) + 1];
 	
@@ -53,7 +51,7 @@ public class World
 		
 	}
 
-	public void add(Entity e) //adding while iterating through actives causes con-mod-exception
+	public void add(Entity e) //adding while iterating causes DEATH
 	{
 		toAdd.add(e);
 	}
