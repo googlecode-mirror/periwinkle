@@ -1,6 +1,5 @@
 package World;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
@@ -12,9 +11,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import Entity.Entity;
 import Entity.Player;
 
+
 /**
  * @author C. Fox
- * last edit: C. Fox
  * 
  * The World class acts as an overseer for all events and actions happening in the game world at
  * any instance in time.
@@ -22,36 +21,40 @@ import Entity.Player;
 public class World 
 {
 	ViewArea screen;
-	Map testMap = new Map(this);
+	public Map Map = new Map(this);
 	Player player;
 
 	LinkedList<Entity> toRemove = new LinkedList<Entity>();
 	LinkedList<Entity> toAdd = new LinkedList<Entity>();
-	ArrayList<Entity> actives = new ArrayList<Entity>();
-	Entity[] renderQueue = new Entity[(Game.width / 32) * (Game.height / 32) + 1];
+	
+	Layer rLayers[] = new Layer[3];
 	
 	public World() throws SlickException
 	{
-		player = new Player(this, "player", new Vector2f(100, 100));
-		screen = new ViewArea(player);
-		
-		for (int i = 0; i < 500; i++)
-		{
-			if (testMap.layer0[i] != null)
-			{
-				renderQueue[i] = testMap.layer0[i];
-			}
-		}
-		
-		actives.add(player);
+		init();
 	}
 	
 	public void init()
 	{
+		player = new Player(this, "player", new Vector2f(100, 100));
+		screen = new ViewArea(player);
 		
+		rLayers[0] = new Layer("bg");
+		rLayers[1] = new Layer("mg"); //this one is being checked for collisions
+		rLayers[2] = new Layer("fg");
+		
+		for (int i = 0; i < 500; i++)
+		{
+			if (Map.layer0[i] != null)
+			{
+				rLayers[0].entities.add(Map.layer0[i]);
+			}
+		}
+		
+		rLayers[1].entities.add(player);
 	}
 
-	public void add(Entity e) //adding while iterating causes DEATH
+	public void add(Entity e)
 	{
 		toAdd.add(e);
 	}
@@ -70,46 +73,98 @@ public class World
 	{
 		screen.update();
 		
-		for (Entity e : renderQueue)
-		{
-			if (e != null)
-			{
-				e.update(gc, null, screen);
-			}
-		}
-		
-		for (Entity e : actives)
-		{
-			e.update(gc, null, screen);
-		}
+		rLayers[0].update(gc, screen);
+		rLayers[1].update(gc, screen);
 		
 		//add new entities to world
 		for (Entity e : toAdd)
 		{
-			actives.add(e);
+			rLayers[1].entities.add(e);
 		}
 		toAdd.clear();
 	}
 	
-	/**
-	 * only render entities that are within the view area + margin
-	 * @param gc
-	 * @param sb
-	 * @param gr
-	 */
-	public void render(GameContainer gc, StateBasedGame sb, Graphics gr)
+	public void checkCollisions(Entity[] arr)
 	{
-		for (Entity e : renderQueue)
+		for (Entity e : arr)
 		{
-			if (e != null)
+			
+		}
+	}
+	
+	/**
+	public void resolveCollisions(Layer cl)
+	{
+		for (Entity e : cl.active)
+		{
+			for (Entity t : cl.active)
 			{
-				e.render(gc, sb, gr);
+				if (e.hit(t))
+				{
+					
+				}
 			}
 		}
-		
-		for (Entity e : actives)
+	}**/
+	
+	/**
+	 * only render entities that are within the view area + margin
+	 */
+	public void render(GameContainer gc, StateBasedGame sb, Graphics gr)
+	{	
+		for (Entity e : rLayers[0].entities)
 		{
 			e.render(gc, sb, gr);
 		}
+		
+		for (Entity e : rLayers[1].entities)
+		{
+			e.render(gc, sb, gr);
+		}
+		
+		for (Entity e : rLayers[2].entities)
+		{
+			e.render(gc, sb, gr);
+		}
+	}
+	
+	public void switchMap(GameContainer gc)
+	{
+		Map.loadMap(this);
+		
+		LinkedList<Entity> currentEntities = new LinkedList<Entity>();
+		
+		for (Entity e : rLayers[1].entities)
+		{
+			if(e != player)
+			{
+				currentEntities.add(e);
+			}
+		}
+		
+		player = new Player(this, "player", new Vector2f(100, 100));
+		screen = new ViewArea(player);
+		
+		rLayers[0] = new Layer("bg");
+		rLayers[1] = new Layer("mg"); //this one is being checked for collisions
+		rLayers[2] = new Layer("fg");
+	
+		
+		for (int i = 0; i < 500; i++)
+		{
+			if (Map.layer0[i] != null)
+			{
+				rLayers[0].entities.add(Map.layer0[i]);
+			}
+		}
+		
+		rLayers[1].entities.add(player);
+		
+		for (Entity e : currentEntities)
+		{
+			toAdd.add(e);
+		}
+		
+		
 	}
 }

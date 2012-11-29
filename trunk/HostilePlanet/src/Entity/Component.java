@@ -2,7 +2,6 @@ package Entity;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.state.StateBasedGame;
 
-
 public abstract class Component 
 {
 	protected String id;
