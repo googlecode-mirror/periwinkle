@@ -15,6 +15,16 @@ public class ImageRenderComponent extends RenderComponent
 		super(id);
 		this.image = image;
 	}
+	
+	public void fadeOut(float multiplier)
+	{
+		image.setAlpha(image.getAlpha() + multiplier);
+	}
+	
+	public void fadeIn(float multiplier)
+	{
+		image.setAlpha(image.getAlpha() - multiplier);
+	}
  
 	public void render(GameContainer gc, StateBasedGame sb, Graphics gr) 
 	{

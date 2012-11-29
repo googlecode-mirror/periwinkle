@@ -20,7 +20,7 @@ public class BladeSphere extends Entity
 		
 		try 
 		{
-			addComponent(new ImageRenderComponent("Blade Sphere", new Image("Resources/Blade Sphere.png", false, Image.FILTER_NEAREST)));
+			addComponent(new ImageRenderComponent("image", new Image("Resources/Blade Sphere.png", false, Image.FILTER_NEAREST)));
 		} 
 		catch (SlickException e) 
 		{
@@ -31,6 +31,8 @@ public class BladeSphere extends Entity
 		speedScale = 2;
 		
 		this.target = target;
+		
+		destroy();
 	}
 	
 	public void follow(Entity e)
@@ -82,19 +84,16 @@ public class BladeSphere extends Entity
 		ySpeed = 0;
 	}
 	
+	public void destroy()
+	{
+		((ImageRenderComponent) getComponent("image")).fadeOut(.0001f);
+	}
+	
 	public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
 	{
 		super.update(gc, sb, screen);
 		
-		if (position.distance(target.position) < 200)
-		{
-			rotation += spin;
-			follow(target);
-		}
-		
-		else
-		{
-			stopFollowing();
-		}
+		rotation += spin;
+		follow(target);
 	}
 }

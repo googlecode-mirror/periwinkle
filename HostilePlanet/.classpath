@@ -2,11 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Workbench/HostilePlanet/lib/slick.jar"/>
-	<classpathentry kind="lib" path="C:/Workbench/HostilePlanet/lib/lwjgl.jar">
+	<classpathentry kind="lib" path="C:/WorkBench/HostilePlanet/lib/slick.jar"/>
+	<classpathentry kind="lib" path="C:/WorkBench/HostilePlanet/lib/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Workbench/HostilePlanet/lib/windows"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/WorkBench/HostilePlanet/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="C:/WorkBench/HostilePlanet/lib/jorbis-0.0.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,6 +8,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.StateBasedGame;
 
+import Entity.hitbox.Hitbox;
+
 import World.ViewArea;
 import World.World;
 
@@ -18,18 +20,22 @@ import World.World;
  * An entity object is any individual object, creature or player in the game world.
  * (So basically everything)
  */
-public class Entity 
+public abstract class Entity 
 {
 	String id;
 	
+	public Hitbox hitbox;
 	public World world;
 	public Vector2f position;
+	public Vector2f speed;
+	
 	float rotation;
 	float scale;
-	int width, height;
+	public int width = 64, 
+		       height = 64;
 	
-	double xSpeed;
-	double ySpeed;
+	public double xSpeed;
+	public double ySpeed;
 	double speedScale;
 	
 	Input userInput = new Input(0);
@@ -97,13 +103,22 @@ public class Entity
     {
     	this.scale = scale;
     }
- 
-    public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
-    {  	   
-
+    
+    public void move(ViewArea screen)
+    {
     	position.x += screen.x + xSpeed;
     	position.y += screen.y + ySpeed;
-
+    }
+    
+    /**
+    public boolean hit(Entity e)
+    {
+    	return hitbox.intersects(e.hitbox);
+    }**/
+ 
+    public void update(GameContainer gc, StateBasedGame sb, ViewArea screen)
+    {
+    	move(screen);
     	
         for(Component component : components)
         {

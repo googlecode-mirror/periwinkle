@@ -21,8 +21,8 @@ public class Bullet extends Entity
 		
 		try 
 		{
-			addComponent(new ImageRenderComponent("bullet", new Image("Resources/bullet.png")));
-		} 
+			addComponent(new ImageRenderComponent("bullet", new Image("Resources/bullet.png", false, Image.FILTER_NEAREST)));
+		}
 		catch (SlickException e) 
 		{
 			e.printStackTrace();

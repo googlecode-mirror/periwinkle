@@ -38,7 +38,7 @@ public class Player extends Entity
 	    	
 		 input = gc.getInput();
 		 getAction(input);
-		 getMovement(input);
+		 getMovement(input, gc);
 	    	
 		 rotation = getRotationTheta();	
 	}
@@ -47,7 +47,25 @@ public class Player extends Entity
 	{
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 		{
-			world.add(new Bullet(world, "shot", new Vector2f(position), -25, rotation));
+
+			Vector2f bulletPos = new Vector2f(position.getX() + 8, position.getY() + 8);
+			float mouseY = input.getMouseY();
+			float changeToX;
+			float changeToY;
+			float newHypot = 16;
+			
+			if(mouseY != position.getY())
+			{
+				bulletPos.set(bulletPos.getX() + 4, bulletPos.getY());
+			}
+			
+			changeToY = (float) (newHypot * Math.sin(Math.toRadians(rotation + 90)));
+			changeToX = (float) (newHypot * Math.cos(Math.toRadians(rotation + 90)));
+			
+			bulletPos.set(bulletPos.getX() - changeToX, bulletPos.getY() - changeToY);
+			world.add(new Bullet(world, "shot", bulletPos, -1, rotation));
+
+			//world.add(new Bullet(world, "shot", new Vector2f(position), -25, rotation));
 		}
 		
 		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON))
@@ -56,7 +74,7 @@ public class Player extends Entity
 		}
 	}
 	
-	public void getMovement(Input input)
+	public void getMovement(Input input, GameContainer gc)
 	{
 		if(input.isKeyDown(Input.KEY_A))
 		{
@@ -76,6 +94,11 @@ public class Player extends Entity
 	    if(input.isKeyDown(Input.KEY_W))
 	    {
 		   	position.set(position.getX(), (position.getY() - movementSpeed));
+	    }
+	    
+	    if(input.isKeyDown(Input.KEY_M))
+	    {
+		   	world.switchMap(gc);
 	    }
 	}
 	 
