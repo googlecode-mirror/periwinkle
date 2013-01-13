@@ -1,25 +1,11 @@
-package Entity.movementbehavior;
+package entity.movementbehavior;
 
-import org.newdawn.slick.geom.Vector2f;
-
-public class MovementStraight implements MovementBehavior
-{
-	public float speed;
-	public int angle;
-	
+public class MovementStraight extends MovementBehavior
+{	
 	public MovementStraight(float s, int theta)
 	{
-		speed = s;
-		angle = theta;
+		speedScale = s;
 	}
 	
-	public Vector2f calculateNextPosition(Vector2f currentPosition)
-	{
-		float  ySpeed = (float) (speed * Math.sin(Math.toRadians(angle + 90)));
-		float xSpeed = (float) (speed * Math.cos(Math.toRadians(angle + 90)));
-		
-		Vector2f nextPosition = new Vector2f(currentPosition.x + xSpeed, currentPosition.y + ySpeed);
-		
-		return nextPosition;
-	}
+	
 }
