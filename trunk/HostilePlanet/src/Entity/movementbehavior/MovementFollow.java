@@ -1,12 +1,13 @@
-package Entity.movementbehavior;
+package entity.movementbehavior;
 
 import org.newdawn.slick.geom.Vector2f;
 
-import Entity.Entity;
+import entity.Entity;
 
 public class MovementFollow implements MovementBehavior
 {
 
+	@Override
 	public Vector2f calculateNextPosition(Vector2f currentPosition, Entity target) 
 	{
 		if (position.x < e.position.x)
